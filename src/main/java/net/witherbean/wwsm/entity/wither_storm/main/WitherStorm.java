@@ -50,7 +50,13 @@ import java.util.function.Predicate;
 
 public class WitherStorm extends Monster implements RangedAttackMob, PowerableMob {
 
-    public int MaxHealth = 400;
+    int phase = this.getPhase();
+    public static int maxHealth = (int) 400;
+    public static int followRange = (int) 1200;
+    public static int attackKnockback = (int) 5;
+    public static int armorToughness = (int) 1;
+    public static int speed = (int) 6;
+    public static int attackDamage = (int) 14;
     private static final Predicate<LivingEntity> LIVING_ENTITY_SELECTOR = (p_31504_) -> {
         return p_31504_.getMobType() != MobType.UNDEAD && p_31504_.attackable();
     };
@@ -153,6 +159,12 @@ public class WitherStorm extends Monster implements RangedAttackMob, PowerableMo
         this.bossEvent.setName(this.getDisplayName());
     }
     public void aiStep() {
+        if (this.getPhase() <= 5) {
+            maxHealth = 400;
+        }
+        if (this.getPhase() >= 6) {
+            maxHealth = 600;
+        }
         if (this.getEvolutionPoints() == 0) {
             this.setPhase(0);
         }
@@ -1156,14 +1168,14 @@ public class WitherStorm extends Monster implements RangedAttackMob, PowerableMo
 
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createLivingAttributes()
-                .add(Attributes.MOVEMENT_SPEED, (double)0.6F)
-                .add(Attributes.FLYING_SPEED, (double)0.6F)
-                .add(Attributes.MAX_HEALTH, 400D)
-                .add(Attributes.FOLLOW_RANGE, 1200D)
-                .add(Attributes.MOVEMENT_SPEED, 0.25D)
-                .add(Attributes.ARMOR_TOUGHNESS, 0.1f)
-                .add(Attributes.ATTACK_KNOCKBACK, 0.5f)
-                .add(Attributes.ATTACK_DAMAGE, 14f);
+                .add(Attributes.MOVEMENT_SPEED, speed / 10)
+                .add(Attributes.FLYING_SPEED, speed / 10)
+                .add(Attributes.MAX_HEALTH, maxHealth)
+                .add(Attributes.FOLLOW_RANGE, followRange)
+                .add(Attributes.MOVEMENT_SPEED, speed / 10)
+                .add(Attributes.ARMOR_TOUGHNESS, armorToughness / 10)
+                .add(Attributes.ATTACK_KNOCKBACK, attackKnockback / 10)
+                .add(Attributes.ATTACK_DAMAGE, attackDamage);
     }
 
     @Override
