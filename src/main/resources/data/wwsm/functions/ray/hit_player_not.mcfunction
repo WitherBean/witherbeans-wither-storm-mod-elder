@@ -1,0 +1,2 @@
+tp @e[type=!#wwsm:absorbable,type=!player,sort=nearest,gamemode=!creative,gamemode=!spectator] ^ ^ ^0.05 facing entity @e[type=wwsm:wither_storm_head,sort=nearest,limit=1]
+data modify entity @e[type=!#wwsm:absorbable,type=!player,limit=1,sort=nearest,gamemode=!creative,gamemode=!spectator] NoAI set value 1b
